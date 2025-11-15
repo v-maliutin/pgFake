@@ -1,0 +1,7 @@
+# pgFake extension
+comment = 'Faking and mocking functionality extending pgTap (Unit testing for PostgreSQL)'
+default_version = '0.0.1'
+module_pathname = '$libdir/pgfake'
+requires = 'plpgsql'
+relocatable = true
+superuser = false
