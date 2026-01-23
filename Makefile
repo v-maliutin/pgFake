@@ -1,9 +1,6 @@
-#PLUGINS = get_sum
-#OBJS    = get_sum.o
-
 #MODULES = pgsqlmock
 EXTENSION = pgsqlmock        # the extersion's name
-DATA = pgsqlmock--1.0.0.sql  # script file to install
+DATA = pgsqlmock--1.0.0.sql pgsqlmock--1.0.0--1.0.1.sql  # script file to install
 REGRESS = viewmock funcmock faketable    # the test script file
 
 # for posgres build

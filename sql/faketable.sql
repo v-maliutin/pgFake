@@ -4,7 +4,7 @@
 
 begin;
 
-SELECT plan(21);
+SELECT plan(32);
 
 -- This will be rolled back. :-)
 SET track_functions = 'all';
@@ -200,9 +200,174 @@ BEGIN
 END;
 $$ LANGUAGE plpgsql;
 
+create or replace function test_fake_table_has_pk()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int primary key, c1 text, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+		_leave_primary_key => true,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select has_pk('public', 'has_pk'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
+create or replace function test_fake_table_hasnt_pk()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int primary key, c1 text, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+		_leave_primary_key => false,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select hasnt_pk('public', 'has_pk'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
+create or replace function test_fake_table_hasnt_pk_hasnt_nulls()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int not null, c1 text not null, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select col_is_null('public', 'has_pk', 'id'::name);
+
+    return query
+    select col_is_null('public', 'has_pk', 'c1'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
+create or replace function test_fake_table_has_pk_no_nulls()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int primary key, c1 text not null, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+		_leave_primary_key => true,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select has_pk('public', 'has_pk'::name);
+
+    return query
+    select col_is_null('public', 'has_pk', 'c1'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
+create or replace function test_fake_table_hasnt_pk_no_nulls()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int primary key, c1 text not null, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+		_leave_primary_key => false,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select hasnt_pk('public', 'has_pk'::name);
+
+    return query
+    select col_is_null('public', 'has_pk', 'id'::name);
+
+    return query
+    select col_is_null('public', 'has_pk', 'c1'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
+create or replace function test_fake_table_hasnt_pk_hasnt_nulls_2()
+returns setof text
+language plpgsql
+as $$
+begin
+	--GIVEN
+	create table public.has_pk(id int not null, c1 text not null, c2 float8);
+
+    -- WHEN
+	perform fake_table(
+		_table_ident => '{public.has_pk}'::text[],
+        _make_table_empty => true,
+		_leave_primary_key => true,
+        _drop_not_null => true		
+	);
+
+    -- THEN
+    return query
+    select col_is_null('public', 'has_pk', 'id'::name);
+
+    return query
+    select col_is_null('public', 'has_pk', 'c1'::name);
+
+	drop table public.has_pk;
+end;
+$$;
+
 SELECT * FROM test_faking_functionality();
 SELECT * FROM test_faking_functionality_pk_not_null();
 SELECT * FROM test_faking_functionality_no_partitions();
+
+select * from test_fake_table_has_pk();
+select * from test_fake_table_hasnt_pk();
+select * from test_fake_table_hasnt_pk_hasnt_nulls();
+select * from test_fake_table_has_pk_no_nulls();
+select * from test_fake_table_hasnt_pk_no_nulls();
+select * from test_fake_table_hasnt_pk_hasnt_nulls_2();
 
 CREATE FUNCTION test_call_count_functionality() RETURNS SETOF TEXT AS $$
 BEGIN

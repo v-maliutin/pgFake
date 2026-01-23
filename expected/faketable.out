@@ -1,5 +1,5 @@
 \unset ECHO
-1..21
+1..32
 ok 1 - public.parent.id is primary key should pass
 ok 2 - public.child.id is not primary key should pass
 ok 3 - public.child.parent_id is not foreign key should pass
@@ -18,6 +18,17 @@ ok 15 - public.pk_plus_not_null.num is not null should pass
 ok 16 - public.pk_plus_not_null.tale is null should pass
 ok 17 - public.pk_plus_not_null.comments is null should pass
 ok 18 - public.parts should have no any partition should pass
-ok 19 - public.scalar_function called once should pass
-ok 20 - public.set_sql_function called twice should pass
-ok 21 - public.set_sql_function(text) called once should pass
+ok 19 - Table public.has_pk should have a primary key
+ok 20 - has_pk
+ok 21 - Column public.has_pk.id should allow NULL
+ok 22 - Column public.has_pk.c1 should allow NULL
+ok 23 - Table public.has_pk should have a primary key
+ok 24 - Column public.has_pk.c1 should allow NULL
+ok 25 - has_pk
+ok 26 - Column public.has_pk.id should allow NULL
+ok 27 - Column public.has_pk.c1 should allow NULL
+ok 28 - Column public.has_pk.id should allow NULL
+ok 29 - Column public.has_pk.c1 should allow NULL
+ok 30 - public.scalar_function called once should pass
+ok 31 - public.set_sql_function called twice should pass
+ok 32 - public.set_sql_function(text) called once should pass

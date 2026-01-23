@@ -1,6 +1,6 @@
 # pgSQLMock extension
 comment = 'Faking and mocking functionality extending pgTap (Unit testing for PostgreSQL)'
-default_version = '1.0.0'
+default_version = '1.0.1'
 module_pathname = '$libdir/pgsqlmock'
 requires = 'plpgsql, pgTap'
 relocatable = true

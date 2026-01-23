@@ -1,4 +1,4 @@
-# pgSQLMock 1.0.0
+# pgSQLMock 1.0.1
 
 Welcome to the pgSQLMock wiki!
 

@@ -308,15 +308,11 @@ begin
                     pg_catalog.pg_attribute t
                 where t.attrelid = (_table.table_schema || '.' || _table.table_name)::regclass
                     and t.attnum > 0 and attnotnull and attidentity = '' /*'d' or 'a' means generated as identity*/
-                    and (
-                        (
-                            --and the column is not part of PK when we want to leave PK as is
-                            t.attname::text != all((select _keys(_table.table_schema, _table.table_name, 'p'))::text[]) and
-                            _leave_primary_key
-                        ) or
-                        --we can drop a NOT NULL constraint as there is no PK already
-                        not _leave_primary_key
-                    );
+					--We must be sure that the current column is not part of PK
+					and not exists(
+						select * from (
+							select unnest(_keys(_table.table_schema, _table.table_name, 'p')) as col_name
+						) where col_name = t.attname::text);
 
                 _fake_ddl = _fake_ddl || _not_null_ddl || ';';
             else
