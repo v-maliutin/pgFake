@@ -89,7 +89,7 @@ begin
 					and not exists(
 						select * from (
 							select unnest(_keys(_table.table_schema, _table.table_name, 'p')) as col_name
-						) where col_name = t.attname::text);
+						) as tt where col_name = t.attname::text);
 
                 _fake_ddl = _fake_ddl || _not_null_ddl || ';';
             else
