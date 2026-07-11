@@ -11,6 +11,21 @@ Mocking, faking and making your test independent
 
 Examples of implementing mocking and faking functionality can be found [`on GitHub`](https://github.com/v-maliutin/pgtap/tree/examples_forking_and_mocking/examples).
 
+**How to install**
+
+Install pgTap then
+make
+make install
+make installcheck
+
+Then execute the following command in the database where you want to install pgSQLMock
+
+CREATE EXTENSION pgSQLMock;
+
+If you need to install pgSQLMock into a specific schema do the following
+
+CREATE EXTENSION pgSQLMock SCHEMA my_own_schema;
+
 Faking
 ------
 
