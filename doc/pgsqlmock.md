@@ -2,6 +2,8 @@
 
 Welcome to the pgSQLMock wiki!
 
+pgSQLMock is a PostgreSQL extension which extends the highly popular unit testing framework pgTap designed to provide mocking and faking capabilities similar to those found in many modern high-level programming languages. Please, see more details at wiki page. Regarding pgTap details are [here](https://github.com/theory/pgtap).
+
 pgTap described [here](https://testanything.org)
 
 Mocking, faking and making your test independent
@@ -14,17 +16,25 @@ Examples of implementing mocking and faking functionality can be found [`on GitH
 **How to install**
 
 Install pgTap then
+
+```sh
 make
 make install
 make installcheck
+...
 
 Then execute the following command in the database where you want to install pgSQLMock
 
-CREATE EXTENSION pgSQLMock;
+
+    CREATE EXTENSION pgSQLMock;
 
 If you need to install pgSQLMock into a specific schema do the following
 
-CREATE EXTENSION pgSQLMock SCHEMA my_own_schema;
+    CREATE EXTENSION pgSQLMock SCHEMA my_own_schema;
+
+**Dependencies**
+
+pgSQLMock requires PostgreSQL 9.1 or higher and pgTap 1.3.4 or higher.
 
 Faking
 ------
