@@ -10,7 +10,7 @@ Install pgTap then
 make
 make install
 make installcheck
-...
+```
 
 Then execute the following command in the database where you want to install pgSQLMock
 
