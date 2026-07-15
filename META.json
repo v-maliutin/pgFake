@@ -1,0 +1,56 @@
+{
+   "name": "pgSQLMock",
+   "abstract": "Mocking and faking functions for unit testing in PostgreSQL",
+   "description": "pgSQLMock is a PostgreSQL extension which extends the highly popular unit testing framework pgTap designed to provide mocking and faking capabilities similar to those found in many modern high-level programming languages.",
+   "version": "1.0.1",
+   "maintainer": [
+      "Slava Maliutin <v-maliutin@pgsqlmock.ru>"
+   ],
+   "license": {
+      "PostgreSQL": "https://www.postgresql.org/about/licence"
+   },
+   "prereqs": {
+      "runtime": {
+         "requires": {
+            "plpgsql": 0,
+            "PostgreSQL": "9.1.0"
+         },
+         "recommends": {
+            "PostgreSQL": "9.4.0"
+         }
+      }
+   },
+   "provides": {
+     "pgSQLMock": {
+       "abstract": "Mocking and faking functions for unit testing in PostgreSQL",
+       "file": "pgsqlmock--1.0.0.sql",
+       "version": "1.0.1"
+     }
+   },
+   "resources": {
+      "homepage": "https://pgsqlmock.ru/",
+      "bugtracker": {
+         "web": "https://github.com/v-maliutin/pgSQLMock/issues"
+      },
+      "repository": {
+        "url":  "https://github.com/v-maliutin/pgSQLMock.git",
+        "web":  "https://github.com/v-maliutin/pgSQLMock",
+        "type": "git"
+      }
+   },
+   "generated_by": "Slava Maliutin",
+   "meta-spec": {
+      "version": "1.0.0",
+      "url": "https://pgxn.org/meta/spec.txt"
+   },
+   "tags": [
+      "testing",
+      "unit testing",
+      "tap",
+      "tddd",
+      "test driven database development",
+	  "mock",
+	  "fake",
+	  "stub"
+   ]
+}
